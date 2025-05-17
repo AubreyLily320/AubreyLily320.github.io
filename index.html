@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>教师资料查询</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f8f9fa;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 10px;
+      box-sizing: border-box;
+    }
+    .result {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .teacher-photo {
+      max-width: 200px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .bio {
+      margin-top: 12px;
+      font-size: 16px;
+      color: #444;
+    }
+    .not-found {
+      color: red;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>教师资料查询</h1>
+  <input type="text" id="searchInput" placeholder="请输入老师姓名，例如：李老师">
+
+  <div class="result" id="result"></div>
+
+  <script>
+    const teachers = {
+      "李老师": {
+        name: "李老师",
+        photo: "images/li.jpg",
+        bio: "李老师毕业于中央音乐学院，拥有10年教学经验，专注于钢琴和声乐指导。"
+      },
+      "王老师": {
+        name: "王老师",
+        photo: "images/wang.jpg",
+        bio: "王老师擅长流行演唱和舞台表演，曾参与多场大型音乐会。"
+      },
+      "张老师": {
+        name: "张老师",
+        photo: "images/zhang.jpg",
+        bio: "张老师主攻古典小提琴，致力于儿童启蒙教育。"
+      }
+    };
+
+    document.getElementById('searchInput').addEventListener('input', function() {
+      const name = this.value.trim();
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = "";
+
+      if (teachers[name]) {
+        const t = teachers[name];
+        resultDiv.innerHTML = `
+          <img class="teacher-photo" src="${t.photo}" alt="${t.name}">
+          <div class="bio"><strong>${t.name}</strong><br>${t.bio}</div>
+        `;
+      } else if (name.length > 0) {
+        resultDiv.innerHTML = `<div class="not-found">未找到 "${name}" 的老师资料。</div>`;
+      }
+    });
+  </script>
+
+</body>
+</html>
